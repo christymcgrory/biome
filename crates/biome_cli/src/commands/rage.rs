@@ -22,7 +22,6 @@ use terminal_size::terminal_size;
 use tokio::runtime::Runtime;
 
 /// Handler for the `rage` command
-#[expect(clippy::fn_params_excessive_bools)]
 pub(crate) fn rage(
     session: CliSession,
     daemon_logs: bool,
