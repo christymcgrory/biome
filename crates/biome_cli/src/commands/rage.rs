@@ -28,7 +28,6 @@ pub(crate) fn rage(
     daemon_logs: bool,
     formatter: bool,
     linter: bool,
-    files: bool,
 ) -> Result<(), CliDiagnostic> {
     let terminal_supports_colors = termcolor::BufferWriter::stdout(ColorChoice::Auto)
         .buffer()
@@ -51,7 +50,7 @@ pub(crate) fn rage(
     {EnvVarOs("JS_RUNTIME_NAME")}
     {EnvVarOs("NODE_PACKAGE_MANAGER")}
 
-    {RageConfiguration { fs: session.app.workspace.fs(), formatter, linter, files }}
+    {RageConfiguration { fs: session.app.workspace.fs(), formatter, linter }}
     {WorkspaceRage(session.app.workspace.deref())}
     ));
 
@@ -198,7 +197,6 @@ struct RageConfiguration<'a> {
     fs: &'a dyn FsWithResolverProxy,
     formatter: bool,
     linter: bool,
-    files: bool,
 }
 
 impl Display for RageConfiguration<'_> {
@@ -367,20 +365,18 @@ impl Display for RageConfiguration<'_> {
                         ).fmt(fmt)?;
                     }
 
-                    if self.files {
-                        let files_configuration = configuration.get_files_configuration();
-                        let includes = files_configuration.includes.as_ref().map(|list| {
-                            list.iter()
-                                .map(|glob| glob.to_string())
-                                .collect::<Vec<_>>()
-                                .join(", ")
-                        });
-                        markup! (
+                    let files_configuration = configuration.get_files_configuration();
+                    let includes = files_configuration.includes.as_ref().map(|list| {
+                        list.iter()
+                            .map(|glob| glob.to_string())
+                            .collect::<Vec<_>>()
+                            .join(", ")
+                    });
+                    markup! (
                             {Section("Files")}
-                            {KeyValuePair("Ignore hidden", markup!({DisplayOption(files_configuration.ignore_unknown)}))}
-                            {KeyValuePair("Includes", markup!({DisplayOption(includes)}))}
+                            {KeyValuePair::new("Ignore hidden", markup!({DisplayOption(files_configuration.ignore_unknown)}))}
+                            {KeyValuePair::new("Includes", markup!({DisplayOption(includes)}))}
                         ).fmt(fmt)?;
-                    }
                 }
             }
             Err(err) => markup! (
