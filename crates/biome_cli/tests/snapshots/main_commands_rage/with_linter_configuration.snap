@@ -109,7 +109,7 @@ Linter:
     suspicious/noCommentText
 
 Files:
-  Ignore hidden:                unset
+  Ignore Unknown:               unset
   Includes:                     unset
 
 Server:

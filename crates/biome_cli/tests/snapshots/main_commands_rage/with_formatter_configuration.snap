@@ -137,7 +137,7 @@ GraphQL Formatter:
   Quote style:                  unset
 
 Files:
-  Ignore hidden:                unset
+  Ignore Unknown:               unset
   Includes:                     unset
 
 Server:

@@ -374,7 +374,7 @@ impl Display for RageConfiguration<'_> {
                     });
                     markup! (
                             {Section("Files")}
-                            {KeyValuePair::new("Ignore hidden", markup!({DisplayOption(files_configuration.ignore_unknown)}))}
+                            {KeyValuePair::new("Ignore Unknown", markup!({DisplayOption(files_configuration.ignore_unknown)}))}
                             {KeyValuePair::new("Includes", markup!({DisplayOption(includes)}))}
                         ).fmt(fmt)?;
                 }

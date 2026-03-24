@@ -48,7 +48,7 @@ Biome Configuration:
   HTML full support enabled:    unset
 
 Files:
-  Ignore hidden:                unset
+  Ignore Unknown:               unset
   Includes:                     unset
 
 Server:
